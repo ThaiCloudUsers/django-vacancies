@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  vacancy-database:
+    image: postgres:12
+    container_name: vacancy-database
+    environment:
+      POSTGRES_PASSWORD: developer
+    volumes:
+      - ./docker/postgres/db:/docker-entrypoint-initdb.d/
+  vacancy-django:
+    build:
+      context: .
+      dockerfile: dev.Dockerfile
+    container_name: vacancy-django
+    # user: 1000:1000
+    environment:
+      DB_HOST: 'vacancy-database'
+      DB_USER: 'postgres'
+      DB_PASS: 'developer'
+      DB_NAME: 'vacancy_dev'
+      DB_PORT: '5432'
+    ports:
+      - 8000:8000
+    volumes:
+      - .:/app
+    command: sleep 1d
