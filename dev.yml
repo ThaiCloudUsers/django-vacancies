@@ -13,6 +13,12 @@ services:
       context: .
       dockerfile: dev.Dockerfile
     container_name: vacancy-django
+    environment:
+      - DB_HOST=vacancy-database
+      - DB_USER=postgres
+      - DB_PASS=developer
+      - DB_NAME=vacancy_dev
+      - DB_PORT=5432
     # user: 1000:1000
     ports:
       - 8000:8000
